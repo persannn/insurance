@@ -43,7 +43,7 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AddressId,Name,Surname,Age,Insurance")] CustomerViewModel customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Age,Insurance")] CustomerViewModel customer)
         {
             if (ModelState.IsValid)
             {

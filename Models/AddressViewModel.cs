@@ -14,5 +14,6 @@ namespace Insurance_Two_Tables.Models
         public int? RegistryNumber { get; set; }
         [Required(ErrorMessage = "Enter the city name")]
         public string? City { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

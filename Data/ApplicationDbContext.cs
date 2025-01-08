@@ -14,7 +14,14 @@ namespace Insurance_Two_Tables.Data
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
         public DbSet<Insurance_Two_Tables.Models.Customer> Customer { get; set; } = default!;
         public DbSet<Insurance_Two_Tables.Models.Address> Address { get; set; } = default!;
+        public DbSet<Insurance_Two_Tables.Models.AddressViewModel> AddressViewModel { get; set; } = default!;
+        public DbSet<Insurance_Two_Tables.Models.CustomerViewModel> CustomerViewModel { get; set; } = default!;
     }
 }
