@@ -4,10 +4,11 @@ using Insurance_Two_Tables.Models;
 
 namespace Insurance_Two_Tables.Managers
 {
+    // Should make an IAddressManager interface, and add the GetAddressByCustomerId method.
     public class AddressManager(IAddressRepository addressRepository, IMapper mapper)
     {
         private readonly IAddressRepository addressRepository = addressRepository;
-        private readonly IMapper mapper = mapper;
+        public readonly IMapper mapper = mapper;
 
         public async Task<AddressViewModel?> GetAddressById(int id)
         {
@@ -19,6 +20,15 @@ namespace Insurance_Two_Tables.Managers
         {
             List<Address> addresses = await addressRepository.GetAll();
             return mapper.Map<List<AddressViewModel>>(addresses);
+        }
+
+        public async Task<AddressViewModel?> GetAddressByCustomerId(int id)
+        {
+            List<Address> addresses = await addressRepository.GetAll();
+            IEnumerable<Address> address = from a in addresses
+                               where a.CustomerId == id
+                               select a;
+            return mapper.Map<AddressViewModel?>(address);
         }
 
         public async Task<AddressViewModel?> AddAddress(AddressViewModel addressViewModel)

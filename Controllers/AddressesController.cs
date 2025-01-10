@@ -50,7 +50,7 @@ namespace Insurance_Two_Tables.Controllers
                 await addressManager.AddAddress(address);
                 return RedirectToAction(nameof(Index));
             }
-            return View(address);
+            return RedirectToAction("Index", "Customers");
         }
 
         // GET: Addresses/Edit/5

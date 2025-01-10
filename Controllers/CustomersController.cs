@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_Two_Tables.Controllers
 {
-    public class CustomersController(CustomerManager customerManager) : Controller
+    public class CustomersController(CustomerManager customerManager, AddressManager addressManager) : Controller
     {
         private readonly CustomerManager customerManager = customerManager;
+        private readonly AddressManager addressManager = addressManager;
 
         // GET: Customers
         public async Task<IActionResult> Index()
@@ -22,13 +23,21 @@ namespace Insurance_Two_Tables.Controllers
                 return NotFound();
             }
 
-            var customer = await customerManager.GetCustomerById((int)id);
+            var customerViewModel = await customerManager.GetCustomerById((int)id);
+            var addressViewModel = await addressManager.GetAddressByCustomerId((int) id);
 
-            if (customer == null)
+            Customer customer = addressManager.mapper.Map<Customer>(customerViewModel);
+            Address address = addressManager.mapper.Map<Address>(addressViewModel);
+
+            CustomerAddress customerAddress = new CustomerAddress(customer, address);
+
+            if (customer == null || address == null)
             {
                 return NotFound();
             }
 
+            // Need to make a CustomerAddressViewModel class, map it to CustomerAddress,
+            // and return that as a view.
             return View(customer);
         }
 
@@ -48,7 +57,7 @@ namespace Insurance_Two_Tables.Controllers
             if (ModelState.IsValid)
             {
                 await customerManager.AddCustomer(customer);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "Addresses");
             }
             return View(customer);
         }

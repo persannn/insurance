@@ -1,6 +1,8 @@
-﻿namespace Insurance_Two_Tables.Models
+﻿using Insurance_Two_Tables.Interfaces;
+
+namespace Insurance_Two_Tables.Models
 {
-    public class Address
+    public class Address : IAddress
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
