@@ -11,7 +11,13 @@ namespace Insurance_Two_Tables.Models
         public string Surname { get; set; }
         [Required(ErrorMessage = "Enter the age")]
         public int Age { get; set; }
-        public Insurance Insurance { get; set; }
-        public virtual Address Address { get; set; }
+        [Required(ErrorMessage = "Enter the type of insurance")]
+        public string Insurance { get; set; }
+        // public virtual Address Address { get; set; }
+
+        public CustomerViewModel()
+        {
+            
+        }
     }
 }

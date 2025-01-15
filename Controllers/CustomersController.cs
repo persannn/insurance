@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_Two_Tables.Controllers
 {
-    public class CustomersController(CustomerManager customerManager, AddressManager addressManager) : Controller
+    public class CustomersController(CustomerManager customerManager) : Controller
     {
         private readonly CustomerManager customerManager = customerManager;
-        private readonly AddressManager addressManager = addressManager;
 
         // GET: Customers
         public async Task<IActionResult> Index()
@@ -23,21 +22,12 @@ namespace Insurance_Two_Tables.Controllers
                 return NotFound();
             }
 
-            var customerViewModel = await customerManager.GetCustomerById((int)id);
-            var addressViewModel = await addressManager.GetAddressByCustomerId((int) id);
+            var customer = await customerManager.GetCustomerById((int)id);
 
-            Customer customer = addressManager.mapper.Map<Customer>(customerViewModel);
-            Address address = addressManager.mapper.Map<Address>(addressViewModel);
-
-            CustomerAddress customerAddress = new CustomerAddress(customer, address);
-
-            if (customer == null || address == null)
+            if (customer == null)
             {
                 return NotFound();
             }
-
-            // Need to make a CustomerAddressViewModel class, map it to CustomerAddress,
-            // and return that as a view.
             return View(customer);
         }
 
@@ -52,9 +42,9 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,Age,Insurance")] CustomerViewModel customer)
+        public async Task<IActionResult> Create(CustomerViewModel customer)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 await customerManager.AddCustomer(customer);
                 return RedirectToAction("Create", "Addresses");
@@ -96,7 +86,7 @@ namespace Insurance_Two_Tables.Controllers
 
                 return updatedCustomer is null ? NotFound() : RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View("Create", "Addresses");
         }
 
         // GET: Customers/Delete/5

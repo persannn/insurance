@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Insurance_Two_Tables.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250108143703_AddedProxiesToClasses")]
-    partial class AddedProxiesToClasses
+    [Migration("20250115172641_AddedParameterlessConstructors")]
+    partial class AddedParameterlessConstructors
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,8 +101,9 @@ namespace Insurance_Two_Tables.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("Insurance")
-                        .HasColumnType("int");
+                    b.Property<string>("Insurance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -131,8 +132,9 @@ namespace Insurance_Two_Tables.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("Insurance")
-                        .HasColumnType("int");
+                    b.Property<string>("Insurance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

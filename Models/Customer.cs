@@ -8,7 +8,12 @@ namespace Insurance_Two_Tables.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public Insurance Insurance { get; set; }
+        public string Insurance { get; set; }
         public virtual Address Address { get; set; }
+
+        public Customer()
+        {
+            Address = new Address();
+        }
     }
 }

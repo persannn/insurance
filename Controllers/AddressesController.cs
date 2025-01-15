@@ -48,7 +48,7 @@ namespace Insurance_Two_Tables.Controllers
             if (ModelState.IsValid)
             {
                 await addressManager.AddAddress(address);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Customers");
             }
             return RedirectToAction("Index", "Customers");
         }

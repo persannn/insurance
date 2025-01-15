@@ -5,14 +5,49 @@
 namespace Insurance_Two_Tables.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedProxiesToClasses : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "AddressId",
-                table: "Customer");
+            migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Insurance = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HouseNumber = table.Column<int>(type: "int", nullable: true),
+                    RegistryNumber = table.Column<int>(type: "int", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Address_Customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateTable(
                 name: "AddressViewModel",
@@ -46,7 +81,7 @@ namespace Insurance_Two_Tables.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    Insurance = table.Column<int>(type: "int", nullable: false),
+                    Insurance = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -75,39 +110,22 @@ namespace Insurance_Two_Tables.Migrations
                 name: "IX_CustomerViewModel_AddressId",
                 table: "CustomerViewModel",
                 column: "AddressId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Address_Customer_CustomerId",
-                table: "Address",
-                column: "CustomerId",
-                principalTable: "Customer",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Address_Customer_CustomerId",
-                table: "Address");
-
             migrationBuilder.DropTable(
                 name: "AddressViewModel");
 
             migrationBuilder.DropTable(
                 name: "CustomerViewModel");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Address_CustomerId",
-                table: "Address");
+            migrationBuilder.DropTable(
+                name: "Address");
 
-            migrationBuilder.AddColumn<int>(
-                name: "AddressId",
-                table: "Customer",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.DropTable(
+                name: "Customer");
         }
     }
 }
