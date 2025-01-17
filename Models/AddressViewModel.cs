@@ -5,7 +5,6 @@ namespace Insurance_Two_Tables.Models
     public class AddressViewModel
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
         [Required(ErrorMessage = "Enter the street name")]
         public string? Street { get; set; }
         [Required(ErrorMessage = "Enter the house number")]
@@ -14,6 +13,13 @@ namespace Insurance_Two_Tables.Models
         public int? RegistryNumber { get; set; }
         [Required(ErrorMessage = "Enter the city name")]
         public string? City { get; set; }
-        public virtual Customer Customer { get; set; }
+
+        /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public AddressViewModel()
+        {
+
+        }
     }
 }

@@ -15,14 +15,14 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? CustomerId)
         {
-            if (id == null)
+            if (CustomerId == null)
             {
                 return NotFound();
             }
 
-            var address = await addressManager.GetAddressById((int)id);
+            var address = await addressManager.GetAddressByCustomerId((int)CustomerId);
 
             if (address == null)
             {
@@ -33,9 +33,10 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int customerId)
         {
-            return View();
+            AddressViewModel address = await addressManager.AddAddress(customerId);
+            return RedirectToAction("Edit", address.Id);
         }
 
         // POST: Addresses/Create
@@ -43,14 +44,14 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustomerId,Street,HouseNumber,RegistryNumber,City")] AddressViewModel address)
+        public async Task<IActionResult> Create(AddressViewModel address)
         {
             if (ModelState.IsValid)
             {
                 await addressManager.AddAddress(address);
                 return RedirectToAction("Index", "Customers");
             }
-            return RedirectToAction("Index", "Customers");
+            return View(address);
         }
 
         // GET: Addresses/Edit/5
@@ -75,7 +76,7 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,Street,HouseNumber,RegistryNumber,City")] AddressViewModel address)
+        public async Task<IActionResult> Edit(int id, [Bind("Street,HouseNumber,RegistryNumber,City")] AddressViewModel address)
         {
             if (id != address.Id)
             {

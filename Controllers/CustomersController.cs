@@ -42,14 +42,14 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CustomerViewModel customer)
+        public async Task<IActionResult> Create(CustomerViewModel customerViewModel)
         {
             if(ModelState.IsValid)
             {
-                await customerManager.AddCustomer(customer);
-                return RedirectToAction("Create", "Addresses");
+                Customer customer = await customerManager.AddCustomer(customerViewModel);
+                return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(customerViewModel);
         }
 
         // GET: Customers/Edit/5
@@ -86,7 +86,7 @@ namespace Insurance_Two_Tables.Controllers
 
                 return updatedCustomer is null ? NotFound() : RedirectToAction(nameof(Index));
             }
-            return View("Create", "Addresses");
+            return View(customer);
         }
 
         // GET: Customers/Delete/5

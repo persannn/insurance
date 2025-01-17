@@ -11,5 +11,11 @@ namespace Insurance_Two_Tables.Models
         public int? RegistryNumber { get; set; }
         public string? City { get; set; }
         public virtual Customer Customer { get; set; }
+
+        public Address() { }
+        public Address(int customerId)
+        {
+            CustomerId = customerId;
+        }
     }
 }

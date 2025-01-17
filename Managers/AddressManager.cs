@@ -38,6 +38,13 @@ namespace Insurance_Two_Tables.Managers
             return mapper.Map<AddressViewModel>(addedAddress);
         }
 
+        public async Task<AddressViewModel?> AddAddress(int customerId)
+        {
+            Address address = new Address(customerId);
+            Address addedAddress = await addressRepository.Insert(address);
+            return mapper.Map<AddressViewModel>(addedAddress);
+        }
+
         public async Task<AddressViewModel?> UpdateAddress(AddressViewModel addressViewModel)
         {
             Address address = mapper.Map<Address>(addressViewModel);

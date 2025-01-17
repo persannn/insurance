@@ -4,9 +4,10 @@ using Insurance_Two_Tables.Models;
 
 namespace Insurance_Two_Tables.Managers
 {
-    public class CustomerManager(ICustomerRepository customerRepository, IMapper mapper)
+    public class CustomerManager(ICustomerRepository customerRepository, IAddressRepository addressRepository, IMapper mapper)
     {
         private readonly ICustomerRepository customerRepository = customerRepository;
+        private readonly IAddressRepository addressRepository = addressRepository;
         private readonly IMapper mapper = mapper;
 
         public async Task<CustomerViewModel?> GetCustomerById(int id)
@@ -21,11 +22,11 @@ namespace Insurance_Two_Tables.Managers
             return mapper.Map<List<CustomerViewModel>>(customers);
         }
 
-        public async Task<CustomerViewModel?> AddCustomer(CustomerViewModel customerViewModel)
+        public async Task<Customer> AddCustomer(CustomerViewModel customerViewModel)
         {
             Customer customer = mapper.Map<Customer>(customerViewModel);
             Customer addedCustomer = await customerRepository.Insert(customer);
-            return mapper.Map<CustomerViewModel>(addedCustomer);
+            return addedCustomer;
         }
 
         public async Task<CustomerViewModel?> UpdateCustomer(CustomerViewModel customerViewModel)
