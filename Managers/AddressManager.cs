@@ -25,9 +25,9 @@ namespace Insurance_Two_Tables.Managers
         public async Task<AddressViewModel?> GetAddressByCustomerId(int id)
         {
             List<Address> addresses = await addressRepository.GetAll();
-            IEnumerable<Address> address = from a in addresses
+            Address address = (from a in addresses
                                where a.CustomerId == id
-                               select a;
+                               select a).First();
             return mapper.Map<AddressViewModel?>(address);
         }
 
@@ -38,9 +38,9 @@ namespace Insurance_Two_Tables.Managers
             return mapper.Map<AddressViewModel>(addedAddress);
         }
 
-        public async Task<AddressViewModel?> AddAddress(int id, int customerId)
+        public async Task<AddressViewModel?> AddAddress(int customerId)
         {
-            Address address = await addressRepository.Insert(new Address(id, customerId));
+            Address address = await addressRepository.Insert(new Address(customerId));
             return mapper.Map<AddressViewModel>(address);
         }
 

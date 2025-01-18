@@ -13,9 +13,8 @@ namespace Insurance_Two_Tables.Models
         public virtual Customer Customer { get; set; }
 
         public Address() { }
-        public Address(int id, int customerId)
+        public Address(int customerId)
         {
-            Id = id;
             CustomerId = customerId;
         }
     }

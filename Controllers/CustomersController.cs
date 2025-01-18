@@ -47,7 +47,7 @@ namespace Insurance_Two_Tables.Controllers
             if(ModelState.IsValid)
             {
                 CustomerViewModel addedCustomer = await customerManager.AddCustomer(customerViewModel);
-                return RedirectToAction("Edit", "Addresses", new { id = addedCustomer.AddressId});
+                return RedirectToAction("Create", "Addresses", new { customerId = addedCustomer.Id});
             }
             return View(customerViewModel);
         }

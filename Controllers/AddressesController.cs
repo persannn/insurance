@@ -15,14 +15,19 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Details/5
-        public async Task<IActionResult> Details(int? Id)
+        public async Task<IActionResult> Details(int? id, bool byCustomerId)
         {
-            if (Id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var address = await addressManager.GetAddressById((int)Id);
+            var address = await addressManager.GetAddressById((int)id);
+
+            if (byCustomerId)
+            {
+                address = await addressManager.GetAddressByCustomerId((int)id);
+            }
 
             if (address == null)
             {
@@ -33,15 +38,14 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Create
-        public async Task<IActionResult> Create(int? id, int? customerId)
+        public async Task<IActionResult> Create(int? customerId)
         {
-            if (id == null || customerId == null)
+            if (customerId == null)
             {
                 return BadRequest();
             }
-            int notNullId = id ?? 0;
-            int notNullCustomerId = customerId ?? 0;
-            AddressViewModel addressViewModel = await addressManager.AddAddress(notNullId, notNullCustomerId);
+            Address address = new Address((int)customerId);
+            AddressViewModel addressViewModel = addressManager.mapper.Map<AddressViewModel>(address);
             return View(addressViewModel);
         }
 
@@ -61,7 +65,7 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, bool byCustomerId)
         {
             if (id == null)
             {
@@ -69,6 +73,11 @@ namespace Insurance_Two_Tables.Controllers
             }
 
             var address = await addressManager.GetAddressById((int)id);
+
+            if (byCustomerId)
+            {
+                address = await addressManager.GetAddressByCustomerId((int)id);
+            }
 
             if (address == null)
             {
