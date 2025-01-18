@@ -22,11 +22,11 @@ namespace Insurance_Two_Tables.Managers
             return mapper.Map<List<CustomerViewModel>>(customers);
         }
 
-        public async Task<Customer> AddCustomer(CustomerViewModel customerViewModel)
+        public async Task<CustomerViewModel> AddCustomer(CustomerViewModel customerViewModel)
         {
             Customer customer = mapper.Map<Customer>(customerViewModel);
             Customer addedCustomer = await customerRepository.Insert(customer);
-            return addedCustomer;
+            return mapper.Map<CustomerViewModel>(addedCustomer);
         }
 
         public async Task<CustomerViewModel?> UpdateCustomer(CustomerViewModel customerViewModel)

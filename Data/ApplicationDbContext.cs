@@ -9,9 +9,20 @@ namespace Insurance_Two_Tables.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        
+
         public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Customer>()
+                .HasOne(e => e.Address)
+                .WithOne(e => e.Customer)
+                .HasForeignKey<Address>(e => e.CustomerId)
+                .IsRequired();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -15,14 +15,14 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Details/5
-        public async Task<IActionResult> Details(int? CustomerId)
+        public async Task<IActionResult> Details(int? Id)
         {
-            if (CustomerId == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
-            var address = await addressManager.GetAddressByCustomerId((int)CustomerId);
+            var address = await addressManager.GetAddressById((int)Id);
 
             if (address == null)
             {
@@ -33,10 +33,16 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // GET: Addresses/Create
-        public async Task<IActionResult> Create(int customerId)
+        public async Task<IActionResult> Create(int? id, int? customerId)
         {
-            AddressViewModel address = await addressManager.AddAddress(customerId);
-            return RedirectToAction("Edit", address.Id);
+            if (id == null || customerId == null)
+            {
+                return BadRequest();
+            }
+            int notNullId = id ?? 0;
+            int notNullCustomerId = customerId ?? 0;
+            AddressViewModel addressViewModel = await addressManager.AddAddress(notNullId, notNullCustomerId);
+            return View(addressViewModel);
         }
 
         // POST: Addresses/Create
@@ -44,14 +50,14 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AddressViewModel address)
+        public async Task<IActionResult> Create(AddressViewModel addressViewModel)
         {
             if (ModelState.IsValid)
             {
-                await addressManager.AddAddress(address);
+                await addressManager.AddAddress(addressViewModel);
                 return RedirectToAction("Index", "Customers");
             }
-            return View(address);
+            return View(addressViewModel);
         }
 
         // GET: Addresses/Edit/5

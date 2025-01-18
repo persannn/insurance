@@ -46,8 +46,8 @@ namespace Insurance_Two_Tables.Controllers
         {
             if(ModelState.IsValid)
             {
-                Customer customer = await customerManager.AddCustomer(customerViewModel);
-                return RedirectToAction(nameof(Index));
+                CustomerViewModel addedCustomer = await customerManager.AddCustomer(customerViewModel);
+                return RedirectToAction("Edit", "Addresses", new { id = addedCustomer.AddressId});
             }
             return View(customerViewModel);
         }
@@ -73,7 +73,7 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AddressId,Name,Surname,Age,Insurance")] CustomerViewModel customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Age,Insurance")] CustomerViewModel customer)
         {
             if (id != customer.Id)
             {

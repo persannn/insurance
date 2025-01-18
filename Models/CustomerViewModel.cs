@@ -5,6 +5,7 @@ namespace Insurance_Two_Tables.Models
     public class CustomerViewModel
     {
         public int Id { get; set; }
+        public int AddressId { get; set; }
         [Required(ErrorMessage = "Enter the name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Enter the surname")]
@@ -13,7 +14,6 @@ namespace Insurance_Two_Tables.Models
         public int Age { get; set; }
         [Required(ErrorMessage = "Enter the type of insurance")]
         public string Insurance { get; set; }
-        // public virtual Address Address { get; set; }
 
         public CustomerViewModel()
         {

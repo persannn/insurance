@@ -4,7 +4,8 @@ namespace Insurance_Two_Tables.Models
 {
     public class AddressViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
+        public int? CustomerId { get; set; }
         [Required(ErrorMessage = "Enter the street name")]
         public string? Street { get; set; }
         [Required(ErrorMessage = "Enter the house number")]
@@ -17,9 +18,12 @@ namespace Insurance_Two_Tables.Models
         /// <summary>
         /// Parameterless constructor
         /// </summary>
-        public AddressViewModel()
-        {
+        public AddressViewModel() { }
 
+        public AddressViewModel(int? id, int? customerId)
+        {
+            Id = id;
+            CustomerId = customerId;
         }
     }
 }
