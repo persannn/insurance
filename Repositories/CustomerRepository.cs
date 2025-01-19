@@ -1,8 +1,8 @@
-﻿using Insurance_Two_Tables.Data;
-using Insurance_Two_Tables.Interfaces;
-using Insurance_Two_Tables.Models;
+﻿using Insurance_Final_Version.Data;
+using Insurance_Final_Version.Interfaces;
+using Insurance_Final_Version.Models;
 
-namespace Insurance_Two_Tables.Repositories
+namespace Insurance_Final_Version.Repositories
 {
     public class CustomerRepository(ApplicationDbContext dbContext) : BaseRepository<Customer>(dbContext), ICustomerRepository
     {

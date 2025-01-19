@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Insurance_Two_Tables.Interfaces;
-using Insurance_Two_Tables.Models;
+using Insurance_Final_Version.Interfaces;
+using Insurance_Final_Version.Models;
 
-namespace Insurance_Two_Tables.Managers
+namespace Insurance_Final_Version.Managers
 {
     /// <summary>
     /// This should just be a child class of some BaseManager class, which would be a general imple-
@@ -81,7 +81,7 @@ namespace Insurance_Two_Tables.Managers
         {
             Customer? customer = await customerRepository.GetById(id);
 
-            if(customer is not null)
+            if (customer is not null)
                 await customerRepository.Delete(customer);
         }
     }

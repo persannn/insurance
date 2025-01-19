@@ -1,6 +1,6 @@
-﻿using Insurance_Two_Tables.Interfaces;
+﻿using Insurance_Final_Version.Interfaces;
 
-namespace Insurance_Two_Tables.Models
+namespace Insurance_Final_Version.Models
 {
     /// <summary>
     /// The Address class stored in the database. It's got one FK - CustomerId - corresponding

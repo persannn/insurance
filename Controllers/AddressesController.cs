@@ -1,8 +1,8 @@
-﻿using Insurance_Two_Tables.Managers;
-using Insurance_Two_Tables.Models;
+﻿using Insurance_Final_Version.Managers;
+using Insurance_Final_Version.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Insurance_Two_Tables.Controllers
+namespace Insurance_Final_Version.Controllers
 {
 
     public class AddressesController(AddressManager addressManager) : Controller
@@ -17,7 +17,7 @@ namespace Insurance_Two_Tables.Controllers
         /// <returns>a list of all Address entities in the database</returns>
         public async Task<IActionResult> Index()
         {
-            return View(await addressManager.GetAllAddresses());
+            return View(await addressManager.GetAll());
         }
 
         // GET: Addresses/Details/5
@@ -34,13 +34,13 @@ namespace Insurance_Two_Tables.Controllers
                 return NotFound();
             }
 
-            var address = await addressManager.GetAddressById((int)id);
+            var address = await addressManager.GetById((int)id);
 
             // If the submitted Id was of a Customer, addressManager will instead get the
             // address with the corresponding CustomerId.
             if (byCustomerId)
             {
-                address = await addressManager.GetAddressByCustomerId((int)id);
+                address = await addressManager.GetByCustomerId((int)id);
             }
 
             if (address == null)
@@ -72,7 +72,7 @@ namespace Insurance_Two_Tables.Controllers
         {
             if (ModelState.IsValid)
             {
-                await addressManager.AddAddress(addressViewModel);
+                await addressManager.Add(addressViewModel);
                 return RedirectToAction("Index", "Customers");
             }
             return View(addressViewModel);
@@ -86,11 +86,11 @@ namespace Insurance_Two_Tables.Controllers
                 return NotFound();
             }
 
-            var address = await addressManager.GetAddressById((int)id);
+            var address = await addressManager.GetById((int)id);
 
             if (byCustomerId)
             {
-                address = await addressManager.GetAddressByCustomerId((int)id);
+                address = await addressManager.GetByCustomerId((int)id);
             }
 
             if (address == null)
@@ -109,9 +109,9 @@ namespace Insurance_Two_Tables.Controllers
         {
             if (ModelState.IsValid)
             {
-                var updateAddress = await addressManager.UpdateAddress(addressViewModel);
+                var updateAddress = await addressManager.Update(addressViewModel);
 
-                return updateAddress is null? NotFound() : RedirectToAction("Details", new { id = addressViewModel.Id, byCustomerId = false});
+                return updateAddress is null ? NotFound() : RedirectToAction("Details", new { id = addressViewModel.Id, byCustomerId = false });
             }
             return View(addressViewModel);
         }
@@ -130,7 +130,7 @@ namespace Insurance_Two_Tables.Controllers
                 return NotFound();
             }
 
-            var address = await addressManager.GetAddressById((int)id);
+            var address = await addressManager.GetById((int)id);
 
             if (address == null)
             {
@@ -151,7 +151,7 @@ namespace Insurance_Two_Tables.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await addressManager.RemoveAddressWithId(id);
+            await addressManager.RemoveWithId(id);
             return RedirectToAction("Index", "Customers");
         }
     }

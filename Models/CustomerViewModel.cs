@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Insurance_Two_Tables.Models
+namespace Insurance_Final_Version.Models
 {
     public class CustomerViewModel
     {
@@ -11,12 +11,11 @@ namespace Insurance_Two_Tables.Models
         public string Surname { get; set; }
         [Required(ErrorMessage = "Enter the age")]
         public int Age { get; set; }
-        [Required(ErrorMessage = "Enter the type of insurance")]
-        public string Insurance { get; set; }
+        public virtual List<Insurance> Insurances { get; set; }
 
         public CustomerViewModel()
         {
-            
+
         }
     }
 }

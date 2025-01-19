@@ -1,4 +1,4 @@
-namespace Insurance_Two_Tables.Models
+namespace Insurance_Final_Version.Models
 {
     public class ErrorViewModel
     {

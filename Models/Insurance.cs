@@ -1,17 +1,17 @@
-﻿using Insurance_Two_Tables.Interfaces;
+﻿using Insurance_Final_Version.Interfaces;
 
-namespace Insurance_Two_Tables.Models
+namespace Insurance_Final_Version.Models
 {
     public class Insurance : IInsurance
     {
         /// <summary>
         /// PK of the Insurance table
         /// </summary>
-        public int Id { get ; set ; }
+        public int Id { get; set; }
         /// <summary>
         /// FK corresponding to the ID column in the Customer table
         /// </summary>
-        public int CustomerId { get ; set ; }
+        public int CustomerId { get; set; }
         /// <summary>
         /// What the insurance is for
         /// </summary>

@@ -1,6 +1,6 @@
-﻿using Insurance_Two_Tables.Models;
+﻿using Insurance_Final_Version.Models;
 
-namespace Insurance_Two_Tables.Interfaces
+namespace Insurance_Final_Version.Interfaces
 {
     public interface IInsuranceRepository : IBaseRepository<Insurance>
     {

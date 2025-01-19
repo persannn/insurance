@@ -1,9 +1,9 @@
-﻿using Insurance_Two_Tables.Data;
-using Insurance_Two_Tables.Interfaces;
+﻿using Insurance_Final_Version.Data;
+using Insurance_Final_Version.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Insurance_Two_Tables.Repositories
+namespace Insurance_Final_Version.Repositories
 {
     public abstract class BaseRepository<TEntity>(ApplicationDbContext dbContext) : IBaseRepository<TEntity> where TEntity : class
     {

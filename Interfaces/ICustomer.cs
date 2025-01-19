@@ -1,6 +1,6 @@
-﻿using Insurance_Two_Tables.Models;
+﻿using Insurance_Final_Version.Models;
 
-namespace Insurance_Two_Tables.Interfaces
+namespace Insurance_Final_Version.Interfaces
 {
     /// <summary>
     /// Interface defining the properties that a Customer should have
@@ -11,7 +11,7 @@ namespace Insurance_Two_Tables.Interfaces
         public abstract string Name { get; set; }
         public abstract string Surname { get; set; }
         public abstract int Age { get; set; }
-        public List<Insurance> Insurance { get; }
+        public abstract List<Insurance> Insurances { get; }
         public abstract Address Address { get; set; }
     }
 }

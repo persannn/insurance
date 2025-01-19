@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Insurance_Two_Tables.Models
+namespace Insurance_Final_Version.Models
 {
     public class InsuranceViewModel
     {

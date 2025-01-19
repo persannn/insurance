@@ -1,6 +1,6 @@
-﻿using Insurance_Two_Tables.Models;
+﻿using Insurance_Final_Version.Models;
 
-namespace Insurance_Two_Tables.Interfaces
+namespace Insurance_Final_Version.Interfaces
 {
     /// <summary>
     /// Interface defining the properties that an Address should have
@@ -14,7 +14,7 @@ namespace Insurance_Two_Tables.Interfaces
         /// <summary>
         /// FK corresponding to the Id column in the Customer table
         /// </summary>
-        public abstract int CustomerId { get; set; } 
+        public abstract int CustomerId { get; set; }
         public abstract string? Street { get; set; }
         public abstract int? HouseNumber { get; set; }
         public abstract int? RegistryNumber { get; set; }

@@ -1,4 +1,4 @@
-﻿@model Insurance_Final_Version.Models.AddressViewModel
+﻿@model Insurance_Final_Version.Models.Insurance
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,32 +8,26 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>AddressViewModel</h4>
+    <h4>Insurance</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Street)
+            @Html.DisplayNameFor(model => model.InsuranceType)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Street)
+            @Html.DisplayFor(model => model.InsuranceType)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HouseNumber)
+            @Html.DisplayNameFor(model => model.InsuranceValue)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HouseNumber)
+            @Html.DisplayFor(model => model.InsuranceValue)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RegistryNumber)
+            @Html.DisplayNameFor(model => model.Customer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RegistryNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Customer.Id)
         </dd>
     </dl>
     

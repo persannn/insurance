@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Insurance_Two_Tables.Models;
+using Insurance_Final_Version.Models;
 
-namespace Insurance_Two_Tables.Data
+namespace Insurance_Final_Version.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        
 
-        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options)
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
@@ -25,7 +25,7 @@ namespace Insurance_Two_Tables.Data
                 .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .HasMany(e => e.Insurance)
+                .HasMany(e => e.Insurances)
                 .WithOne(e => e.Customer)
                 .HasForeignKey(e => e.CustomerId)
                 .IsRequired();
@@ -36,9 +36,10 @@ namespace Insurance_Two_Tables.Data
             optionsBuilder.UseLazyLoadingProxies();
         }
 
-        public DbSet<Insurance_Two_Tables.Models.Customer> Customer { get; set; } = default!;
-        public DbSet<Insurance_Two_Tables.Models.Address> Address { get; set; } = default!;
-        public DbSet<Insurance_Two_Tables.Models.AddressViewModel> AddressViewModel { get; set; } = default!;
-        public DbSet<Insurance_Two_Tables.Models.CustomerViewModel> CustomerViewModel { get; set; } = default!;
+        public DbSet<Customer> Customer { get; set; } = default!;
+        public DbSet<Address> Address { get; set; } = default!;
+        public DbSet<AddressViewModel> AddressViewModel { get; set; } = default!;
+        public DbSet<CustomerViewModel> CustomerViewModel { get; set; } = default!;
+        public DbSet<Insurance_Final_Version.Models.Insurance> Insurance { get; set; } = default!;
     }
 }

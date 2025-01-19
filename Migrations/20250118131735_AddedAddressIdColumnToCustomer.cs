@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Insurance_Two_Tables.Migrations
+namespace Insurance_Final_Version.Migrations
 {
     /// <inheritdoc />
     public partial class AddedAddressIdColumnToCustomer : Migration

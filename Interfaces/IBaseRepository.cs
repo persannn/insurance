@@ -1,4 +1,4 @@
-﻿namespace Insurance_Two_Tables.Interfaces
+﻿namespace Insurance_Final_Version.Interfaces
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {

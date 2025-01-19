@@ -1,6 +1,6 @@
-﻿using Insurance_Two_Tables.Interfaces;
+﻿using Insurance_Final_Version.Interfaces;
 
-namespace Insurance_Two_Tables.Models
+namespace Insurance_Final_Version.Models
 {
     public class Customer : ICustomer
     {
@@ -8,12 +8,12 @@ namespace Insurance_Two_Tables.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public List<Insurance> Insurance { get; } = new List<Insurance>();
+        public virtual List<Insurance> Insurances { get; } = new List<Insurance>();
         public virtual Address Address { get; set; }
-        
+
         public Customer()
         {
-            
+
         }
     }
 }

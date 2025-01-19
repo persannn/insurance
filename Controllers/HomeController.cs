@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using Insurance_Two_Tables.Models;
+using Insurance_Final_Version.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Insurance_Two_Tables.Controllers
+namespace Insurance_Final_Version.Controllers
 {
     public class HomeController : Controller
     {

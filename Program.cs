@@ -1,8 +1,8 @@
-using Insurance_Two_Tables;
-using Insurance_Two_Tables.Data;
-using Insurance_Two_Tables.Interfaces;
-using Insurance_Two_Tables.Managers;
-using Insurance_Two_Tables.Repositories;
+using Insurance_Final_Version;
+using Insurance_Final_Version.Data;
+using Insurance_Final_Version.Interfaces;
+using Insurance_Final_Version.Managers;
+using Insurance_Final_Version.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
