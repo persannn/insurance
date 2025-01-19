@@ -23,6 +23,12 @@ namespace Insurance_Two_Tables.Data
                 .WithOne(e => e.Customer)
                 .HasForeignKey<Address>(e => e.CustomerId)
                 .IsRequired();
+
+            modelBuilder.Entity<Customer>()
+                .HasMany(e => e.Insurance)
+                .WithOne(e => e.Customer)
+                .HasForeignKey(e => e.CustomerId)
+                .IsRequired();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

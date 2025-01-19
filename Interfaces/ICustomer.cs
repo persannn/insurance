@@ -11,7 +11,7 @@ namespace Insurance_Two_Tables.Interfaces
         public abstract string Name { get; set; }
         public abstract string Surname { get; set; }
         public abstract int Age { get; set; }
-        public string Insurance { get; set; }
+        public List<Insurance> Insurance { get; }
         public abstract Address Address { get; set; }
     }
 }

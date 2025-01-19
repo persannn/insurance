@@ -8,7 +8,7 @@ namespace Insurance_Two_Tables.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public string Insurance { get; set; }
+        public List<Insurance> Insurance { get; } = new List<Insurance>();
         public virtual Address Address { get; set; }
         
         public Customer()
