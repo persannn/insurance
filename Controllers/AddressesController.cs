@@ -4,17 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_Two_Tables.Controllers
 {
+
     public class AddressesController(AddressManager addressManager) : Controller
     {
         private readonly AddressManager addressManager = addressManager;
 
         // GET: Addresses
+        /// <summary>
+        /// A regular user should never have the option to get to this action, but it could be useful
+        /// to keep it in case an administrator wants to see all the stuff at once.
+        /// </summary>
+        /// <returns>a list of all Address entities in the database</returns>
         public async Task<IActionResult> Index()
         {
             return View(await addressManager.GetAllAddresses());
         }
 
         // GET: Addresses/Details/5
+        /// <summary>
+        /// The bool byCustomerId specifies whether the submitted Id is of an Address, or the corresponding Customer.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="byCustomerId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id, bool byCustomerId)
         {
             if (id == null)
@@ -24,6 +36,8 @@ namespace Insurance_Two_Tables.Controllers
 
             var address = await addressManager.GetAddressById((int)id);
 
+            // If the submitted Id was of a Customer, addressManager will instead get the
+            // address with the corresponding CustomerId.
             if (byCustomerId)
             {
                 address = await addressManager.GetAddressByCustomerId((int)id);
@@ -91,23 +105,24 @@ namespace Insurance_Two_Tables.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Street,HouseNumber,RegistryNumber,City")] AddressViewModel address)
+        public async Task<IActionResult> Edit(AddressViewModel addressViewModel)
         {
-            if (id != address.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                var updateAddress = await addressManager.UpdateAddress(address);
+                var updateAddress = await addressManager.UpdateAddress(addressViewModel);
 
-                return updateAddress is null? NotFound() : RedirectToAction(nameof(Index));
+                return updateAddress is null? NotFound() : RedirectToAction("Details", new { id = addressViewModel.Id, byCustomerId = false});
             }
-            return View(address);
+            return View(addressViewModel);
         }
 
         // GET: Addresses/Delete/5
+        /// <summary>
+        /// I don't think there's any use for this method? Since all addresses should only
+        /// be inserted and removed from the database with their corresponding Customer.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>ViewModel of the address that's about to be deleted</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,12 +141,18 @@ namespace Insurance_Two_Tables.Controllers
         }
 
         // POST: Addresses/Delete/5
+        /// <summary>
+        /// I don't think there's any use for this method? Since all addresses should only
+        /// be inserted and removed from the database with their corresponding Customer.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>Index View from CustomersController</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await addressManager.RemoveAddressWithId(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Customers");
         }
     }
 }

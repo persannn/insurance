@@ -2,6 +2,9 @@
 
 namespace Insurance_Two_Tables.Interfaces
 {
+    /// <summary>
+    /// Interface defining the properties that a Customer should have
+    /// </summary>
     public interface ICustomer
     {
         public abstract int Id { get; set; }

@@ -4,24 +4,44 @@ using Insurance_Two_Tables.Models;
 
 namespace Insurance_Two_Tables.Managers
 {
-    public class CustomerManager(ICustomerRepository customerRepository, IAddressRepository addressRepository, IMapper mapper)
+    /// <summary>
+    /// This should just be a child class of some BaseManager class, which would be a general imple-
+    /// mentation of a IBaseManager interface. When these are completed I'll rewrite this file too.
+    /// </summary>
+    /// <param name="customerRepository">an instance of</param>
+    /// <param name="addressRepository"></param>
+    /// <param name="mapper"></param>
+    public class CustomerManager(ICustomerRepository customerRepository, IMapper mapper)
     {
         private readonly ICustomerRepository customerRepository = customerRepository;
-        private readonly IAddressRepository addressRepository = addressRepository;
         private readonly IMapper mapper = mapper;
 
+        /// <summary>
+        /// Method that returns a customer with the requested Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>CustomerViewModel of the desired Customer</returns>
         public async Task<CustomerViewModel?> GetCustomerById(int id)
         {
             Customer? customer = await customerRepository.GetById(id);
             return mapper.Map<CustomerViewModel?>(customer);
         }
 
+        /// <summary>
+        /// Returns a list of all customers in the database
+        /// </summary>
+        /// <returns>List<CustomerViewModel> containing all the customers in the database</returns>
         public async Task<List<CustomerViewModel>> GetAllCustomers()
         {
             List<Customer> customers = await customerRepository.GetAll();
             return mapper.Map<List<CustomerViewModel>>(customers);
         }
 
+        /// <summary>
+        /// Adds a customer to the database
+        /// </summary>
+        /// <param name="customerViewModel">CustomerViewModel of the new customer</param>
+        /// <returns>CustomerViewModel of the freshly added customer</returns>
         public async Task<CustomerViewModel> AddCustomer(CustomerViewModel customerViewModel)
         {
             Customer customer = mapper.Map<Customer>(customerViewModel);
@@ -29,6 +49,11 @@ namespace Insurance_Two_Tables.Managers
             return mapper.Map<CustomerViewModel>(addedCustomer);
         }
 
+        /// <summary>
+        /// Updates the customer information according to the submitted model
+        /// </summary>
+        /// <param name="customerViewModel">altered CustomerViewModel</param>
+        /// <returns>updated CustomerViewModel</returns>
         public async Task<CustomerViewModel?> UpdateCustomer(CustomerViewModel customerViewModel)
         {
             Customer customer = mapper.Map<Customer>(customerViewModel);
@@ -47,6 +72,11 @@ namespace Insurance_Two_Tables.Managers
             }
         }
 
+        /// <summary>
+        /// Removes a customer with the submitted Id from the database
+        /// </summary>
+        /// <param name="id">customer Id</param>
+        /// <returns></returns>
         public async Task RemoveCustomerWithId(int id)
         {
             Customer? customer = await customerRepository.GetById(id);

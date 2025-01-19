@@ -2,6 +2,9 @@
 
 namespace Insurance_Two_Tables.Interfaces
 {
+    /// <summary>
+    /// Interface defining the properties that an Address should have
+    /// </summary>
     public interface IAddress
     {
         public abstract int Id { get; set; }
