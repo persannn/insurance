@@ -1,25 +1,17 @@
-﻿using Insurance_Final_Version.Data;
+﻿using Insurance_Final_Version.Managers;
 using Insurance_Final_Version.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace Insurance_Final_Version.Controllers
 {
-    public class InsurancesController : Controller
+    public class InsurancesController(InsuranceManager insuranceManager) : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public InsurancesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        private readonly InsuranceManager insuranceManager = insuranceManager; 
 
         // GET: Insurances
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Insurance.Include(i => i.Customer);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await insuranceManager.GetAll());
         }
 
         // GET: Insurances/Details/5
@@ -30,22 +22,37 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var insurance = await _context.Insurance
-                .Include(i => i.Customer)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (insurance == null)
+            InsuranceViewModel? insuranceViewModel = await insuranceManager.GetById((int)id);
+            if (insuranceViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(insurance);
+            return View(insuranceViewModel);
+        }
+
+        public async Task<IActionResult> CustomerInsurances(int? customerId)
+        {
+            if (customerId == null)
+            {
+                return NotFound();
+            }
+
+            List<InsuranceViewModel> insurances = await insuranceManager.GetByCustomerId((int)customerId);
+            ViewData["CustomerId"] = customerId;
+            return View(insurances);
         }
 
         // GET: Insurances/Create
-        public IActionResult Create()
+        public IActionResult Create(int? customerId)
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "Id", "Id");
-            return View();
+            if (customerId == null)
+            {
+                return BadRequest();
+            }
+            Insurance insurance = new Insurance((int)customerId);
+            InsuranceViewModel insuranceViewModel = insuranceManager.mapper.Map<InsuranceViewModel>(insurance);
+            return View(insuranceViewModel);
         }
 
         // POST: Insurances/Create
@@ -53,16 +60,14 @@ namespace Insurance_Final_Version.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustomerId,InsuranceType,InsuranceValue")] Insurance insurance)
+        public async Task<IActionResult> Create(InsuranceViewModel insuranceViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(insurance);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await insuranceManager.Add(insuranceViewModel);
+                return RedirectToAction("Index", "Customers");
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "Id", "Id", insurance.CustomerId);
-            return View(insurance);
+            return View(insuranceViewModel);
         }
 
         // GET: Insurances/Edit/5
@@ -73,13 +78,13 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var insurance = await _context.Insurance.FindAsync(id);
-            if (insurance == null)
+            InsuranceViewModel? insuranceViewModel = await insuranceManager.GetById((int)id);
+            if (insuranceViewModel == null)
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "Id", "Id", insurance.CustomerId);
-            return View(insurance);
+            ViewData["CustomerId"] = insuranceViewModel.CustomerId;
+            return View(insuranceViewModel);
         }
 
         // POST: Insurances/Edit/5
@@ -87,34 +92,18 @@ namespace Insurance_Final_Version.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,InsuranceType,InsuranceValue")] Insurance insurance)
+        public async Task<IActionResult> Edit(int id, int customerId, [Bind("Id,CustomerId,InsuranceType,InsuranceValue")] InsuranceViewModel insurance)
         {
-            if (id != insurance.Id)
+            if (id != insurance.Id || customerId != insurance.CustomerId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(insurance);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!InsuranceExists(insurance.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                InsuranceViewModel? updatedInsurance = await insuranceManager.Update(insurance);
+                return updatedInsurance is null ? NotFound() : RedirectToAction("Details", new { id = updatedInsurance.Id});
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "Id", "Id", insurance.CustomerId);
             return View(insurance);
         }
 
@@ -126,15 +115,14 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var insurance = await _context.Insurance
-                .Include(i => i.Customer)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (insurance == null)
+            InsuranceViewModel? insuranceViewModel = await insuranceManager.GetById((int)id);
+
+            if (insuranceViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(insurance);
+            return View(insuranceViewModel);
         }
 
         // POST: Insurances/Delete/5
@@ -142,19 +130,8 @@ namespace Insurance_Final_Version.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var insurance = await _context.Insurance.FindAsync(id);
-            if (insurance != null)
-            {
-                _context.Insurance.Remove(insurance);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool InsuranceExists(int id)
-        {
-            return _context.Insurance.Any(e => e.Id == id);
+            await insuranceManager.RemoveWithId(id);
+            return RedirectToAction("Index", "Customers");
         }
     }
 }

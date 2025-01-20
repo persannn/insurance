@@ -22,13 +22,13 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var customer = await customerManager.GetCustomerById((int)id);
+            CustomerViewModel? customerViewModel = await customerManager.GetCustomerById((int)id);
 
-            if (customer == null)
+            if (customerViewModel == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(customerViewModel);
         }
 
         // GET: Customers/Create
@@ -73,7 +73,7 @@ namespace Insurance_Final_Version.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Age,Insurance")] CustomerViewModel customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Age")] CustomerViewModel customer)
         {
             if (id != customer.Id)
             {

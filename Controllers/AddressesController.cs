@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_Final_Version.Controllers
 {
-
     public class AddressesController(AddressManager addressManager) : Controller
     {
         private readonly AddressManager addressManager = addressManager;
@@ -52,7 +51,7 @@ namespace Insurance_Final_Version.Controllers
         }
 
         // GET: Addresses/Create
-        public async Task<IActionResult> Create(int? customerId)
+        public IActionResult Create(int? customerId)
         {
             if (customerId == null)
             {
@@ -105,13 +104,18 @@ namespace Insurance_Final_Version.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AddressViewModel addressViewModel)
+        public async Task<IActionResult> Edit(int id, AddressViewModel addressViewModel)
         {
+            if(id != addressViewModel.Id)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                var updateAddress = await addressManager.Update(addressViewModel);
+                AddressViewModel? updateAddress = await addressManager.Update(addressViewModel);
 
-                return updateAddress is null ? NotFound() : RedirectToAction("Details", new { id = addressViewModel.Id, byCustomerId = false });
+                return updateAddress is null ? NotFound() : RedirectToAction("Details", new { id = addressViewModel.Id});
             }
             return View(addressViewModel);
         }
@@ -130,14 +134,14 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var address = await addressManager.GetById((int)id);
+            AddressViewModel? addressViewModel = await addressManager.GetById((int)id);
 
-            if (address == null)
+            if (addressViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(address);
+            return View(addressViewModel);
         }
 
         // POST: Addresses/Delete/5

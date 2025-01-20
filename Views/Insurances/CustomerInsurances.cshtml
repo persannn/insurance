@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CustomerInsurances";
 }
 
-<h1>Index</h1>
+<h1>CustomerInsurances</h1>
 
+<p>
+    <a asp-action="Create" asp-route-customerid="@ViewData["CustomerId"]">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>

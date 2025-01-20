@@ -7,33 +7,33 @@ namespace Insurance_Final_Version.Repositories
 {
     public abstract class BaseRepository<TEntity>(ApplicationDbContext dbContext) : IBaseRepository<TEntity> where TEntity : class
     {
-        private readonly ApplicationDbContext dbContext = dbContext;
-        private readonly DbSet<TEntity> dbSet = dbContext.Set<TEntity>();
+        protected readonly ApplicationDbContext dbContext = dbContext;
+        protected readonly DbSet<TEntity> dbSet = dbContext.Set<TEntity>();
 
 
-        public async Task<TEntity?> GetById(int id)
+        public virtual async Task<TEntity?> GetById(int id)
         {
             return await dbSet.FindAsync(id);
         }
 
-        public async Task<bool> ExistsWithId(int id)
+        public virtual async Task<bool> ExistsWithId(int id)
         {
             return await GetById(id) != null;
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public virtual async Task<List<TEntity>> GetAll()
         {
             return await dbSet.ToListAsync();
         }
 
-        public async Task<TEntity> Insert(TEntity entity)
+        public virtual async Task<TEntity> Insert(TEntity entity)
         {
             EntityEntry<TEntity> entry = dbSet.Add(entity);
             await dbContext.SaveChangesAsync();
             return entry.Entity;
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public virtual async Task<TEntity> Update(TEntity entity)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Insurance_Final_Version.Repositories
             }
         }
 
-        public async Task Delete(TEntity entity)
+        public virtual async Task Delete(TEntity entity)
         {
             try
             {

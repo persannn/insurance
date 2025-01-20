@@ -41,5 +41,6 @@ namespace Insurance_Final_Version.Data
         public DbSet<AddressViewModel> AddressViewModel { get; set; } = default!;
         public DbSet<CustomerViewModel> CustomerViewModel { get; set; } = default!;
         public DbSet<Insurance_Final_Version.Models.Insurance> Insurance { get; set; } = default!;
+        public DbSet<Insurance_Final_Version.Models.InsuranceViewModel> InsuranceViewModel { get; set; } = default!;
     }
 }

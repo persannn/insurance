@@ -7,22 +7,27 @@ namespace Insurance_Final_Version.Managers
     public class InsuranceManager(IInsuranceRepository insuranceRepository, IMapper mapper)
     {
         private readonly IInsuranceRepository insuranceRepository = insuranceRepository;
-        private readonly IMapper mapper = mapper;
+        public readonly IMapper mapper = mapper;
 
-        public async Task<InsuranceViewModel?> GetById(int id, bool byCustomerId = false)
+        public async Task<InsuranceViewModel?> GetById(int id)
         {
             Insurance? insurance = await insuranceRepository.GetById(id);
-
-            // If the submitted Id is of the Customer instead of the Insurance, this query is executed.
-            if (byCustomerId)
-            {
-                List<Insurance> insurances = await insuranceRepository.GetAll();
-                insurance = (from i in insurances
-                                       where i.CustomerId == id
-                                       select i).First();
-            }
-
             return mapper.Map<InsuranceViewModel>(insurance);
+        }
+
+        /// <summary>
+        /// A method that takes a Customer's Id and returns a list of InsuranceViewModels
+        /// corresponding to the Customer's Insurances.
+        /// </summary>
+        /// <param name="customerId">Customer's Id</param>
+        /// <returns>list of the customer's insurances</returns>
+        public async Task<List<InsuranceViewModel>> GetByCustomerId(int customerId)
+        {
+            List<Insurance> insurances = await insuranceRepository.GetAll();
+            insurances = (from i in insurances
+                          where i.CustomerId == customerId
+                          select i).ToList();
+            return mapper.Map<List<InsuranceViewModel>>(insurances);
         }
 
         public async Task<List<InsuranceViewModel>> GetAll()

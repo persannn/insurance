@@ -8,7 +8,7 @@ namespace Insurance_Final_Version.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public virtual List<Insurance> Insurances { get; } = new List<Insurance>();
+        public virtual List<Insurance> Insurances { get; set; }
         public virtual Address Address { get; set; }
 
         public Customer()

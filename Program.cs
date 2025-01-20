@@ -24,6 +24,9 @@ builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<AddressManager>();
 
+builder.Services.AddScoped<IInsuranceRepository, InsuranceRepository>();
+builder.Services.AddScoped<InsuranceManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
