@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Insurance_Final_Version.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250118175553_RemovingAddressIdFromCustomerClass")]
-    partial class RemovingAddressIdFromCustomerClass
+    [Migration("20250121165323_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace Insurance_Final_Version.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Insurance_Two_Tables.Models.Address", b =>
+            modelBuilder.Entity("Insurance_Final_Version.Models.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace Insurance_Final_Version.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("Insurance_Two_Tables.Models.AddressViewModel", b =>
+            modelBuilder.Entity("Insurance_Final_Version.Models.AddressViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace Insurance_Final_Version.Migrations
                     b.ToTable("AddressViewModel");
                 });
 
-            modelBuilder.Entity("Insurance_Two_Tables.Models.Customer", b =>
+            modelBuilder.Entity("Insurance_Final_Version.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,10 +98,6 @@ namespace Insurance_Final_Version.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
-
-                    b.Property<string>("Insurance")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -116,7 +112,7 @@ namespace Insurance_Final_Version.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("Insurance_Two_Tables.Models.CustomerViewModel", b =>
+            modelBuilder.Entity("Insurance_Final_Version.Models.CustomerViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -124,15 +120,8 @@ namespace Insurance_Final_Version.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Age")
                         .HasColumnType("int");
-
-                    b.Property<string>("Insurance")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -147,21 +136,96 @@ namespace Insurance_Final_Version.Migrations
                     b.ToTable("CustomerViewModel");
                 });
 
-            modelBuilder.Entity("Insurance_Two_Tables.Models.Address", b =>
+            modelBuilder.Entity("Insurance_Final_Version.Models.Insurance", b =>
                 {
-                    b.HasOne("Insurance_Two_Tables.Models.Customer", "Customer")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerViewModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InsuranceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InsuranceValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("CustomerViewModelId");
+
+                    b.ToTable("Insurance");
+                });
+
+            modelBuilder.Entity("Insurance_Final_Version.Models.InsuranceViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InsuranceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InsuranceValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InsuranceViewModel");
+                });
+
+            modelBuilder.Entity("Insurance_Final_Version.Models.Address", b =>
+                {
+                    b.HasOne("Insurance_Final_Version.Models.Customer", "Customer")
                         .WithOne("Address")
-                        .HasForeignKey("Insurance_Two_Tables.Models.Address", "CustomerId")
+                        .HasForeignKey("Insurance_Final_Version.Models.Address", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Insurance_Two_Tables.Models.Customer", b =>
+            modelBuilder.Entity("Insurance_Final_Version.Models.Insurance", b =>
+                {
+                    b.HasOne("Insurance_Final_Version.Models.Customer", "Customer")
+                        .WithMany("Insurances")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Insurance_Final_Version.Models.CustomerViewModel", null)
+                        .WithMany("Insurances")
+                        .HasForeignKey("CustomerViewModelId");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Insurance_Final_Version.Models.Customer", b =>
                 {
                     b.Navigation("Address")
                         .IsRequired();
+
+                    b.Navigation("Insurances");
+                });
+
+            modelBuilder.Entity("Insurance_Final_Version.Models.CustomerViewModel", b =>
+                {
+                    b.Navigation("Insurances");
                 });
 #pragma warning restore 612, 618
         }

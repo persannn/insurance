@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.InsuranceType)
@@ -36,6 +36,9 @@
                 <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
+        <div>
+            <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Customers" asp-route-id="@ViewData["CustomerId"]">Customer</a>
+        </div>
     </tbody>
 </table>

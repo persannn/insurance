@@ -163,6 +163,29 @@ namespace Insurance_Final_Version.Migrations
                     b.ToTable("Insurance");
                 });
 
+            modelBuilder.Entity("Insurance_Final_Version.Models.InsuranceViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InsuranceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InsuranceValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InsuranceViewModel");
+                });
+
             modelBuilder.Entity("Insurance_Final_Version.Models.Address", b =>
                 {
                     b.HasOne("Insurance_Final_Version.Models.Customer", "Customer")
