@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>
 
 @{
-    ViewData["Title"] = "CustomerInsurances";
+    ViewData["Title"] = "Customer Insurances";
 }
 
-<h1>CustomerInsurances</h1>
-
-<p>
-    <a asp-action="Create" asp-route-customerid="@ViewData["CustomerId"]">Create New</a>
+<h1>Customer's Insurances</h1>
+<br>
+<p class="justify-content-center">
+    <a type="button" class="btn btn-primary" asp-action="Create" asp-route-customerid="@ViewData["CustomerId"]">Add Insurance</a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.InsuranceValue)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a type="button" class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Insurance_Final_Version.Models
 {
@@ -6,8 +7,10 @@ namespace Insurance_Final_Version.Models
     {
         public int? Id { get; set; }
         public int? CustomerId { get; set; }
+        [DisplayName("Type of insurance")]
         [Required(ErrorMessage = "Please fill in the type of insurance")]
         public string? InsuranceType { get; set; }
+        [DisplayName("Value of insurance")]
         [Required(ErrorMessage = "Please fill in the value of the insurance")]
         public int? InsuranceValue { get; set; }
 
