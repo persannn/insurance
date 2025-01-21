@@ -11,7 +11,7 @@ namespace Insurance_Final_Version.Interfaces
         public abstract string Name { get; set; }
         public abstract string Surname { get; set; }
         public abstract int Age { get; set; }
-        public abstract List<Insurance> Insurances { get; }
+        public abstract List<Insurance>? Insurances { get; }
         public abstract Address Address { get; set; }
     }
 }

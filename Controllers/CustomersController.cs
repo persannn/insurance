@@ -60,7 +60,7 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var customer = await customerManager.GetCustomerById((int)id);
+            CustomerViewModel? customer = await customerManager.GetCustomerById((int)id);
             if (customer == null)
             {
                 return NotFound();
@@ -82,7 +82,7 @@ namespace Insurance_Final_Version.Controllers
 
             if (ModelState.IsValid)
             {
-                var updatedCustomer = await customerManager.UpdateCustomer(customer);
+                CustomerViewModel? updatedCustomer = await customerManager.UpdateCustomer(customer);
 
                 return updatedCustomer is null ? NotFound() : RedirectToAction(nameof(Index));
             }

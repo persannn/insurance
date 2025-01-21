@@ -32,7 +32,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Details" asp-controller="Customers" asp-route-id="@Model?.CustomerId">Back to Customer</a>
 </div>
 
 @section Scripts {

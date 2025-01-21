@@ -11,7 +11,7 @@ namespace Insurance_Final_Version.Models
         public string Surname { get; set; }
         [Required(ErrorMessage = "Enter the age")]
         public int Age { get; set; }
-        public virtual List<Insurance> Insurances { get; set; }
+        public virtual List<Insurance>? Insurances { get; set; }
 
         public CustomerViewModel()
         {

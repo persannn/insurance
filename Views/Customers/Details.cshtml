@@ -31,8 +31,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Details" asp-controller="Addresses" asp-route-id="@Model?.Id" asp-route-bycustomerid="@true">Address</a> |
-    <a asp-action="CustomerInsurances" asp-controller="Insurances" asp-route-customerid="@Model?.Id">Insurance</a> |
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Delete</a> |
+    <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Addresses" asp-route-id="@Model?.Id" asp-route-bycustomerid="@true">Address</a> |
+    <a type="button" class="btn btn-outline-info" asp-action="CustomerInsurances" asp-controller="Insurances" asp-route-customerid="@Model?.Id">Insurance</a>
 </div>
