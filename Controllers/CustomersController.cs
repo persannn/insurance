@@ -22,12 +22,14 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            CustomerViewModel? customerViewModel = await customerManager.GetCustomerById((int)id);
+            CustomerViewModel? customerViewModel = await customerManager.GetById((int)id, true);
 
             if (customerViewModel == null)
             {
                 return NotFound();
             }
+            IEnumerable<InsuranceViewModel> insuranceViewModels = customerManager.mapper.Map<List<InsuranceViewModel>>(customerViewModel.Insurances);
+            ViewData["Insurances"] = insuranceViewModels;
             return View(customerViewModel);
         }
 
@@ -60,7 +62,7 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            CustomerViewModel? customer = await customerManager.GetCustomerById((int)id);
+            CustomerViewModel? customer = await customerManager.GetById((int)id);
             if (customer == null)
             {
                 return NotFound();
@@ -73,7 +75,7 @@ namespace Insurance_Final_Version.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Age")] CustomerViewModel customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,Age,PhoneNumberPrefix,PhoneNumber,Email")] CustomerViewModel customer)
         {
             if (id != customer.Id)
             {
@@ -84,7 +86,7 @@ namespace Insurance_Final_Version.Controllers
             {
                 CustomerViewModel? updatedCustomer = await customerManager.UpdateCustomer(customer);
 
-                return updatedCustomer is null ? NotFound() : RedirectToAction(nameof(Index));
+                return updatedCustomer is null ? NotFound() : RedirectToAction("Details", "Customers", new { id = updatedCustomer.Id});
             }
             return View(customer);
         }
@@ -97,7 +99,7 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            var customer = await customerManager.GetCustomerById((int)id);
+            var customer = await customerManager.GetById((int)id);
 
             if (customer == null)
             {

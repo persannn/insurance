@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Insurance Type
+            </th>
+            <th>
+                Insurance Value
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (InsuranceViewModel item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InsuranceType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InsuranceValue) CZK
+                </td>
+                <td>
+                    <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Insurances" asp-route-id="@item.Id">Details</a> |
+                    <a type="button" class="btn btn-warning" asp-action="Edit" asp-controller="Insurances" asp-route-id="@item.Id">Edit</a> |
+                    <a type="button" class="btn btn-danger" asp-action="Delete" asp-controller="Insurances" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row justify-content-center">
+    <a type="button" class="btn btn-primary btn-lg" asp-action="Create" asp-controller="Insurances" asp-route-customerid=@ViewData["CustomerId"]>Add Insurance</a>
+</div>

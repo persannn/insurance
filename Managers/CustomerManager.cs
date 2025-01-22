@@ -14,15 +14,20 @@ namespace Insurance_Final_Version.Managers
     public class CustomerManager(ICustomerRepository customerRepository, IMapper mapper)
     {
         private readonly ICustomerRepository customerRepository = customerRepository;
-        private readonly IMapper mapper = mapper;
+        public readonly IMapper mapper = mapper;
 
         /// <summary>
         /// Method that returns a customer with the requested Id
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>CustomerViewModel of the desired Customer</returns>
-        public async Task<CustomerViewModel?> GetCustomerById(int id)
+        public async Task<CustomerViewModel?> GetById(int id, bool withDetails = false)
         {
+            if (withDetails)
+            {
+                Customer? customerWithDetails = await customerRepository.GetWithDetails(id);
+                return mapper.Map<CustomerViewModel>(customerWithDetails);
+            }
             Customer? customer = await customerRepository.GetById(id);
             return mapper.Map<CustomerViewModel?>(customer);
         }

@@ -2,12 +2,15 @@
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["CustomerId"] = Model.Id;
+    IEnumerable<InsuranceViewModel>? Insurances = ViewData["Insurances"]
+        as IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>;
 }
 
 <h1>Customer Details</h1>
 
 <div>
-    <dl class="row">
+    <dl class="row align-items-start">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -26,11 +29,28 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Age)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-1">
+            @Html.DisplayFor(model => model.PhoneNumberPrefix)
+        </dd>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
     </dl>
+</div>
+<div id="CustomerInsurancesPartial">
+    @await Html.PartialAsync("_CustomerInsurancesPartial", Insurances, ViewData)
 </div>
 <div>
     <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Delete</a> |
-    <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Addresses" asp-route-id="@Model?.Id" asp-route-bycustomerid="@true">Address</a> |
-    <a type="button" class="btn btn-outline-info" asp-action="CustomerInsurances" asp-controller="Insurances" asp-route-customerid="@Model?.Id">Insurance</a>
+    <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Addresses" asp-route-id="@Model?.Id" asp-route-bycustomerid="@true">Address</a>
 </div>

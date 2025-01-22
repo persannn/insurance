@@ -65,7 +65,7 @@ namespace Insurance_Final_Version.Controllers
             if (ModelState.IsValid)
             {
                 await insuranceManager.Add(insuranceViewModel);
-                return RedirectToAction("Index", "Customers");
+                return RedirectToAction("CustomerInsurances", "Insurances", new { customerId = insuranceViewModel.CustomerId});
             }
             return View(insuranceViewModel);
         }

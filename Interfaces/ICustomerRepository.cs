@@ -4,5 +4,6 @@ namespace Insurance_Final_Version.Interfaces
 {
     public interface ICustomerRepository : IBaseRepository<Customer>
     {
+        Task<Customer> GetWithDetails(int id);
     }
 }
