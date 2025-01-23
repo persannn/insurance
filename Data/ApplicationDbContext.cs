@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Insurance_Final_Version.Models;
 using Microsoft.EntityFrameworkCore;
-using Insurance_Final_Version.Models;
 
 namespace Insurance_Final_Version.Data
 {
