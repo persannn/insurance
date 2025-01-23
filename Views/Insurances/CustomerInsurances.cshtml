@@ -1,7 +1,8 @@
-﻿@model IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>
+﻿@model IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>?
 
 @{
     ViewData["Title"] = "Customer Insurances";
+    ViewData["Insurances"] = Model;
 }
 
 <h1>Customer's Insurances</h1>
@@ -10,33 +11,6 @@
     <a type="button" class="btn btn-primary" asp-action="Create" asp-route-customerid="@ViewData["CustomerId"]">Add Insurance</a> |
     <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Customers" asp-route-id="@ViewData["CustomerId"]">Customer</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InsuranceType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InsuranceValue)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InsuranceType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InsuranceValue) CZK
-            </td>
-            <td>
-                <a type="button" class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div id="CustomerInsurancesPartial">
+    @await Html.PartialAsync("_CustomerInsurancesPartial", Model, ViewData)
+</div>

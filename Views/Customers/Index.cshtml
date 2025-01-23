@@ -2,6 +2,27 @@
 
 @{
     ViewData["Title"] = "Index";
+    bool wasAdded = ViewBag.WasAdded;
+    bool wasDeleted = ViewBag.WasDeleted;
+
+    if(wasAdded)
+    {
+        <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <P><strong>Customer was successfully added to the database.</strong></P>
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    if(wasDeleted)
+    {
+        <div class="alert alert-warning alert-dismissable fade show" role="alert">
+            <P><strong>Customer was successfully removed from the database.</strong></P>
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
 }
 
 <h1>List of customers</h1>

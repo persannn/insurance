@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>
-<table class="table">
+<table class="table-responsive">
     <thead>
         <tr>
             <th>
@@ -31,5 +31,5 @@
     </tbody>
 </table>
 <div class="row justify-content-center">
-    <a type="button" class="btn btn-primary btn-lg" asp-action="Create" asp-controller="Insurances" asp-route-customerid=@ViewData["CustomerId"]>Add Insurance</a>
+    <a type="button" class="btn btn-primary btn-sm align-self-center w-25" asp-action="Create" asp-controller="Insurances" asp-route-customerid=@ViewData["CustomerId"]>Add Insurance</a>
 </div>

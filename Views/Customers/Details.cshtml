@@ -3,8 +3,19 @@
 @{
     ViewData["Title"] = "Details";
     ViewData["CustomerId"] = Model.Id;
+    bool wasEdited = ViewBag.WasEdited;
     IEnumerable<InsuranceViewModel>? Insurances = ViewData["Insurances"]
         as IEnumerable<Insurance_Final_Version.Models.InsuranceViewModel>;
+
+    if(wasEdited)
+    {
+        <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <P><strong>Customer data was successfully updated.</strong></P>
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
 }
 
 <h1>Customer Details</h1>
@@ -46,11 +57,12 @@
         </dd>
     </dl>
 </div>
-<div id="CustomerInsurancesPartial">
-    @await Html.PartialAsync("_CustomerInsurancesPartial", Insurances, ViewData)
-</div>
-<div>
+<div class="py-3">
     <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Delete</a> |
     <a type="button" class="btn btn-outline-info" asp-action="Details" asp-controller="Addresses" asp-route-id="@Model?.Id" asp-route-bycustomerid="@true">Address</a>
+</div>
+<hr>
+<div id="CustomerInsurancesPartial">
+    @await Html.PartialAsync("_CustomerInsurancesPartial", Insurances, ViewData)
 </div>
