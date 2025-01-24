@@ -5,12 +5,12 @@ namespace Insurance_Final_Version.Interfaces
     /// <summary>
     /// Interface that defines what properties an Insurance should have
     /// </summary>
-    public interface IInsurance
+    public interface IInsurance : IViewModelable
     {
         /// <summary>
         /// PK of the Insurance table
         /// </summary>
-        public abstract int Id { get; set; }
+        public new abstract int? Id { get; set; }
         /// <summary>
         /// FK corresponding to the ID column in the Customers table
         /// </summary>

@@ -5,12 +5,12 @@
     /// Interface for the BaseManager class
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public interface IBaseManager<TEntity> where TEntity : class
+    public interface IBaseManager<TEntity, TViewModel> where TEntity : class where TViewModel : class, IViewModelable
     {
-        Task<TEntity> GetById(int id);
-        Task<List<TEntity>> GetAll();
-        Task<TEntity?> Add(TEntity entity);
-        Task<TEntity?> Update(TEntity entity);
-        Task<TEntity?> Delete(int id);
+        Task<TViewModel?> GetById(int id);
+        Task<List<TViewModel>> GetAll();
+        Task<TViewModel?> Add(TViewModel viewModel);
+        Task<TViewModel?> Update(TViewModel viewModel);
+        Task<bool> RemoveWithId(int id);
     }
 }

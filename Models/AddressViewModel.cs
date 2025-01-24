@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Insurance_Final_Version.Interfaces;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Insurance_Final_Version.Models
@@ -6,7 +7,7 @@ namespace Insurance_Final_Version.Models
     /// <summary>
     /// ViewModel mapped to the Address class
     /// </summary>
-    public class AddressViewModel
+    public class AddressViewModel : IViewModelable
     {
         /// <summary>
         /// The Id of the Address

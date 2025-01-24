@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Insurance_Final_Version.Interfaces;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Insurance_Final_Version.Models
 {
-    public class InsuranceViewModel
+    public class InsuranceViewModel : IViewModelable
     {
         public int? Id { get; set; }
         public int? CustomerId { get; set; }

@@ -26,7 +26,7 @@ namespace Insurance_Final_Version.Repositories
         /// </summary>
         /// <param name="id">ID of the desired TEntity</param>
         /// <returns>TEntity with the passed id, or null if not found.</returns>
-        public virtual async Task<TEntity?> GetById(int id)
+        public virtual async Task<TEntity?> GetById(int? id)
         {
             return await dbSet.FindAsync(id);
         }
@@ -35,7 +35,7 @@ namespace Insurance_Final_Version.Repositories
         /// </summary>
         /// <param name="id">ID</param>
         /// <returns>'true' if TEntity with the submitted ID is in the database, 'false' if not.</returns>
-        public virtual async Task<bool> ExistsWithId(int id)
+        public virtual async Task<bool> ExistsWithId(int? id)
         {
             return await GetById(id) != null;
         }

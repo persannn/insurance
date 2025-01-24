@@ -27,7 +27,7 @@ namespace Insurance_Final_Version.Controllers
         {
             ViewBag.WasAdded = wasAdded;
             ViewBag.WasDeleted = wasDeleted;
-            return View(await customerManager.GetAllCustomers());
+            return View(await customerManager.GetAll());
         }
 
         // GET: Customers/Details/5
@@ -84,7 +84,7 @@ namespace Insurance_Final_Version.Controllers
         {
             if (ModelState.IsValid)
             {
-                CustomerViewModel addedCustomer = await customerManager.AddCustomer(customerViewModel);
+                CustomerViewModel addedCustomer = await customerManager.Add(customerViewModel);
                 return RedirectToAction("Create", "Addresses", new { customerId = addedCustomer.Id });
             }
             return View(customerViewModel);
@@ -132,7 +132,7 @@ namespace Insurance_Final_Version.Controllers
 
             if (ModelState.IsValid)
             {
-                CustomerViewModel? updatedCustomer = await customerManager.UpdateCustomer(customer);
+                CustomerViewModel? updatedCustomer = await customerManager.Update(customer);
 
                 // The 'wasEdited' parameter tells the Details() method that the customer information was just edited.
                 return updatedCustomer is null ? NotFound() : RedirectToAction("Details", "Customers", new { id = updatedCustomer.Id, wasEdited = true});
@@ -175,7 +175,7 @@ namespace Insurance_Final_Version.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await customerManager.RemoveCustomerWithId(id);
+            await customerManager.RemoveWithId(id);
 
             //The wasDeleted parameter tells the Index() method that a customer was just removed from the database.
             return RedirectToAction(nameof(Index), new { wasDeleted = true});
