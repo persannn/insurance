@@ -45,14 +45,14 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            CustomerViewModel? customerViewModel = await customerManager.GetById((int)id, true);
+            CustomerViewModel? customerViewModel = await customerManager.GetById((int)id);
 
             if (customerViewModel == null)
             {
                 return NotFound();
             }
 
-            IEnumerable<InsuranceViewModel> insuranceViewModels = customerManager.mapper.Map<List<InsuranceViewModel>>(customerViewModel.Insurances);
+            IEnumerable<InsuranceViewModel> insuranceViewModels = customerManager.Mapper.Map<List<InsuranceViewModel>>(customerViewModel.Insurances);
             ViewData["Insurances"] = insuranceViewModels;
             ViewBag.WasEdited = wasEdited;
             return View(customerViewModel);

@@ -66,7 +66,7 @@ namespace Insurance_Final_Version.Controllers
                 return BadRequest();
             }
             Address address = new Address((int)customerId);
-            AddressViewModel addressViewModel = addressManager.mapper.Map<AddressViewModel>(address);
+            AddressViewModel addressViewModel = addressManager.Mapper.Map<AddressViewModel>(address);
             return View(addressViewModel);
         }
 

@@ -74,7 +74,7 @@ namespace Insurance_Final_Version.Controllers
                 return BadRequest();
             }
             Insurance insurance = new Insurance((int)customerId);
-            InsuranceViewModel insuranceViewModel = insuranceManager.mapper.Map<InsuranceViewModel>(insurance);
+            InsuranceViewModel insuranceViewModel = insuranceManager.Mapper.Map<InsuranceViewModel>(insurance);
             return View(insuranceViewModel);
         }
 

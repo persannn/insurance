@@ -13,6 +13,5 @@
         Task<TEntity> Insert(TEntity entity);
         Task<TEntity> Update(TEntity entity);
         Task Delete(TEntity entity);
-        Task<TEntity?> GetWithDetails(int? id);
     }
 }
