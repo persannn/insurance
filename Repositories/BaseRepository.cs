@@ -95,11 +95,5 @@ namespace Insurance_Final_Version.Repositories
                 throw;
             }
         }
-        /*
-        public virtual Task<TEntity?> GetWithDetails(int? id)
-        {
-            throw new NotImplementedException();
-        }
-        */
     }
 }

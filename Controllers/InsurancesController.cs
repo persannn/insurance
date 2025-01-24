@@ -168,7 +168,6 @@ namespace Insurance_Final_Version.Controllers
             {
                 return NotFound();
             }
-
             return View(insuranceViewModel);
         }
 
@@ -181,10 +180,10 @@ namespace Insurance_Final_Version.Controllers
         /// <returns>Redirects the user to Index method of the Customers controller.</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int customerId)
         {
             await insuranceManager.RemoveWithId(id);
-            return RedirectToAction("Index", "Customers");
+            return RedirectToAction("Details", "Customers", new { id = customerId});
         }
     }
 }
