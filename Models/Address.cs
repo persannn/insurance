@@ -11,7 +11,7 @@ namespace Insurance_Final_Version.Models
         /// <summary>
         /// PK of the Address table
         /// </summary>
-        public int? Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// FK corresponding to the Id column in the Customer table
         /// </summary>

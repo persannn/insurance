@@ -7,7 +7,7 @@ namespace Insurance_Final_Version.Models
         /// <summary>
         /// PK of the Insurance table
         /// </summary>
-        public int? Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// FK corresponding to the ID column in the Customer table
         /// </summary>

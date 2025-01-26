@@ -5,7 +5,7 @@
         /// <summary>
         /// PK of the table
         /// </summary>
-        public abstract int? Id { get; set; }
+        public abstract int Id { get; set; }
         /// <summary>
         /// FK corresponding to the ID column in the Customers table
         /// </summary>

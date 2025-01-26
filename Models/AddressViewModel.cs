@@ -12,7 +12,7 @@ namespace Insurance_Final_Version.Models
         /// <summary>
         /// The Id of the Address
         /// </summary>
-        public int? Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// The Id of the corresponding Customer
         /// </summary>
@@ -37,7 +37,7 @@ namespace Insurance_Final_Version.Models
         /// </summary>
         /// <param name="id"></param>
         /// <param name="customerId"></param>
-        public AddressViewModel(int? id, int? customerId)
+        public AddressViewModel(int id, int customerId)
         {
             Id = id;
             CustomerId = customerId;
