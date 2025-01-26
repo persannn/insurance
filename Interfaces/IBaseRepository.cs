@@ -14,6 +14,13 @@
         /// <returns>TEntity with the passed id, or null if not found.</returns>
         Task<TEntity?> GetById(int? id);
         /// <summary>
+        /// Returns an instance of TEntity where the CustomerId matches the passed ID.
+        /// If the entity is a Customer, it will instead return the Customer with the passed ID.
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>TEntity entity</returns>
+        Task<List<TEntity>> GetByCustomerId(int? id);
+        /// <summary>
         /// Returns 'true' if TEntity with the submitted ID is in the database, 'false' if not.
         /// </summary>
         /// <param name="id">ID</param>

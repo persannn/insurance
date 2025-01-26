@@ -7,14 +7,6 @@ namespace Insurance_Final_Version.Interfaces
     /// </summary>
     public interface IAddress : IViewModelable
     {
-        /// <summary>
-        /// PK of the Address table
-        /// </summary>
-        public new abstract int? Id { get; set; }
-        /// <summary>
-        /// FK corresponding to the Id column in the Customer table
-        /// </summary>
-        public abstract int? CustomerId { get; set; }
         public abstract string? Street { get; set; }
         public abstract int? HouseNumber { get; set; }
         public abstract int? RegistryNumber { get; set; }

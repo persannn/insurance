@@ -42,7 +42,8 @@ namespace Insurance_Final_Version.Controllers
             // address with the corresponding CustomerId.
             if (byCustomerId)
             {
-                address = await addressManager.GetByCustomerId((int)id);
+                List<AddressViewModel> addresses = await addressManager.GetByCustomerId((int)id);
+                address = addresses.First();
             }
 
             if (address == null)
@@ -109,7 +110,8 @@ namespace Insurance_Final_Version.Controllers
 
             if (byCustomerId)
             {
-                address = await addressManager.GetByCustomerId((int)id);
+                List<AddressViewModel> addresses = await addressManager.GetByCustomerId((int)id);
+                address = addresses.First();
             }
 
             if (address == null)

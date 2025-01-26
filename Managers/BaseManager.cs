@@ -67,6 +67,17 @@ namespace Insurance_Final_Version.Managers
         }
 
         /// <summary>
+        /// Returns a list of TViewModels of TEntity objects where the CustomerId matches the passed ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List<TViewModel></returns>
+        public virtual async Task<List<TViewModel>> GetByCustomerId(int id)
+        {
+            List<TEntity> entities = await Repository.GetByCustomerId(id);
+            return Mapper.Map<List<TViewModel>>(entities);
+        }
+
+        /// <summary>
         /// Removes an entity of type TEntity with the corresponding ID from the database.
         /// </summary>
         /// <param name="id">ID</param>

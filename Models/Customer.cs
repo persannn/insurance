@@ -5,6 +5,7 @@ namespace Insurance_Final_Version.Models
     public class Customer : ICustomer
     {
         public int? Id { get; set; }
+        public virtual int? CustomerId { get { return Id; } set { Id = value; } }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }

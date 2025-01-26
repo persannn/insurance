@@ -2,6 +2,13 @@
 {
     public interface IViewModelable
     {
-        public int? Id { get; set; }
+        /// <summary>
+        /// PK of the table
+        /// </summary>
+        public abstract int? Id { get; set; }
+        /// <summary>
+        /// FK corresponding to the ID column in the Customers table
+        /// </summary>
+        public abstract int? CustomerId { get; set; }
     }
 }

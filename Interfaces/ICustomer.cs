@@ -7,7 +7,6 @@ namespace Insurance_Final_Version.Interfaces
     /// </summary>
     public interface ICustomer : IViewModelable
     {
-        public new abstract int? Id { get; set; }
         public abstract string Name { get; set; }
         public abstract string Surname { get; set; }
         public abstract int Age { get; set; }

@@ -7,6 +7,7 @@ namespace Insurance_Final_Version.Models
     public class CustomerViewModel : IViewModelable
     {
         public int? Id { get; set; }
+        public int? CustomerId { get { return Id; } set { Id = value; } }
         [Required(ErrorMessage = "Enter the name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Enter the surname")]

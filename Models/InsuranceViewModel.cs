@@ -7,7 +7,7 @@ namespace Insurance_Final_Version.Models
     public class InsuranceViewModel : IViewModelable
     {
         public int? Id { get; set; }
-        public int? CustomerId { get; set; }
+        public int? CustomerId { get { return Id; } set { Id = value; } }
         [DisplayName("Type of insurance")]
         [Required(ErrorMessage = "Please fill in the type of insurance")]
         public string? InsuranceType { get; set; }

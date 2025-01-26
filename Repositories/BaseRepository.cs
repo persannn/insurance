@@ -10,7 +10,8 @@ namespace Insurance_Final_Version.Repositories
     /// </summary>
     /// <typeparam name="TEntity">Generic object of type 'class'.</typeparam>
     /// <param name="dbContext">Database context, in our case it's always ApplicationDbContext.</param>
-    public abstract class BaseRepository<TEntity>(ApplicationDbContext dbContext) : IBaseRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity>(ApplicationDbContext dbContext) : IBaseRepository<TEntity>
+        where TEntity : class, IViewModelable
     {
         /// <summary>
         /// Database context, in our case it's always ApplicationDbContext.
@@ -29,6 +30,17 @@ namespace Insurance_Final_Version.Repositories
         public virtual async Task<TEntity?> GetById(int? id)
         {
             return await dbSet.FindAsync(id);
+        }
+        /// <summary>
+        /// Returns an instance of TEntity where the CustomerId matches the passed ID.
+        /// If the entity is a Customer, it will instead return the Customer with the passed ID.
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>TEntity entity</returns>
+        public virtual async Task<List<TEntity>> GetByCustomerId(int? id)
+        {
+            List<TEntity> entities = await dbContext.Set<TEntity>().Where(e => e.CustomerId == id).ToListAsync();
+            return entities;
         }
         /// <summary>
         /// Returns 'true' if TEntity with the submitted ID is in the database, 'false' if not.
