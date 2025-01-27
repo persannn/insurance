@@ -66,3 +66,6 @@
 <div id="CustomerInsurancesPartial">
     @await Html.PartialAsync("_CustomerInsurancesPartial", Insurances, ViewData)
 </div>
+<div class="row justify-content-center">
+    <a type="button" class="btn btn-primary btn-sm align-self-center w-25" asp-action="Create" asp-controller="Insurances" asp-route-customerid=@ViewData["CustomerId"]>Add Insurance</a>
+</div>

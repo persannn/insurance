@@ -1,12 +1,14 @@
 ﻿using Insurance_Final_Version.Interfaces;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Insurance_Final_Version.Models
 {
     public class CustomerViewModel : IViewModelable
     {
         public int Id { get; set; }
+        [NotMapped]
         public int? CustomerId { get; set; }
         [Required(ErrorMessage = "Enter the name")]
         public string Name { get; set; }

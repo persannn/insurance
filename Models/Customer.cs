@@ -1,11 +1,21 @@
 ﻿using Insurance_Final_Version.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Insurance_Final_Version.Models
 {
     public class Customer : ICustomer
     {
         public int Id { get; set; }
-        public int? CustomerId { get; set; }
+        [NotMapped]
+        public int? CustomerId
+        {
+            get { return Id; }
+            set
+            {
+                if(value != null)
+                Id = (int)value;
+            }
+        }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
