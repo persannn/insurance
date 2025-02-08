@@ -10,9 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Insurance_Two_TablesContext") ?? throw new InvalidOperationException("Connection string 'Insurance_Two_TablesContext' not found.")));
 
-// This shit doesn't work.
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
