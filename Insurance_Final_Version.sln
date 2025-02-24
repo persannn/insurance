@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurance_Final_Version", "Insurance_Final_Version.csproj", "{5619EE5E-8AB1-4304-BF22-378A013C9616}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurance_Final_Version", ".\Insurance_Final_Version\Insurance_Final_Version.csproj", "{5619EE5E-8AB1-4304-BF22-378A013C9616}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProjectInsurance", "..\TestProjectInsurance\TestProjectInsurance.csproj", "{C4F98F0F-BE30-4783-B80A-16EC7ADCD934}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProjectInsurance", ".\TestProjectInsurance\TestProjectInsurance.csproj", "{C4F98F0F-BE30-4783-B80A-16EC7ADCD934}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
