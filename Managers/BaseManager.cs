@@ -16,7 +16,7 @@ namespace Insurance_Final_Version.Managers
         private readonly IMapper _mapper;
 
         public IBaseRepository<TEntity> Repository => _baseRepository;
-        public IMapper Mapper => _mapper;
+        public virtual IMapper Mapper => _mapper;
 
         /// <summary>
         /// Constructor of BaseManager
@@ -28,6 +28,8 @@ namespace Insurance_Final_Version.Managers
             _baseRepository = baseRepository;
             _mapper = mapper;
         }
+
+        public BaseManager() { }
 
         /// <summary>
         /// Method that takes a TViewModel object, maps it on a TEntity object,

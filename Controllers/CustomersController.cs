@@ -52,7 +52,7 @@ namespace Insurance_Final_Version.Controllers
                 return NotFound();
             }
 
-            IEnumerable<InsuranceViewModel> insuranceViewModels = customerManager.Mapper.Map<List<InsuranceViewModel>>(customerViewModel.Insurances);
+            IEnumerable<InsuranceViewModel>? insuranceViewModels = customerManager.Mapper.Map<List<InsuranceViewModel>>(customerViewModel.Insurances);
             ViewData["Insurances"] = insuranceViewModels;
             ViewBag.WasEdited = wasEdited;
             return View(customerViewModel);

@@ -9,5 +9,7 @@ namespace Insurance_Final_Version.Managers
         public CustomerManager(ICustomerRepository Repository, IMapper Mapper)
             : base(Repository, Mapper)
         { }
+
+        public CustomerManager() { }
     }
 }

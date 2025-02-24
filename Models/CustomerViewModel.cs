@@ -31,7 +31,7 @@ namespace Insurance_Final_Version.Models
 
         [DisplayName("Phone Number")]
         [Required(ErrorMessage = "Enter the phone number")]
-        [Length(7, 12, ErrorMessage = "The phone number must have between 7 and 12 digits")]
+        [Range(1000000, 999999999999, ErrorMessage = "The phone number must have between 7 and 12 digits")]
         public int PhoneNumber { get; set; }
 
         [EmailAddress(ErrorMessage = "Error - not the right format")]

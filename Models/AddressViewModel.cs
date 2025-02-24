@@ -25,12 +25,12 @@ namespace Insurance_Final_Version.Models
 
         [DisplayName("House Number")]
         [Required(ErrorMessage = "Enter the house number")]
-        [Length(1, 4, ErrorMessage = "The house number must have between 1 and 4 digits")]
+        [Range(1, 9999, ErrorMessage = "The house number must have between 1 and 4 digits")]
         public int? HouseNumber { get; set; }
 
         [DisplayName("Registry Number")]
         [Required(ErrorMessage = "Enter the registry number")]
-        [Length(1, 8, ErrorMessage = "The registry number must have between 1 and 8 digits")]
+        [Range(1, 99999999, ErrorMessage = "The registry number must have between 1 and 8 digits")]
         public int? RegistryNumber { get; set; }
 
         [Required(ErrorMessage = "Enter the city name")]

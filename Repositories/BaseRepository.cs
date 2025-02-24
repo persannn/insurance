@@ -1,5 +1,4 @@
-﻿using Insurance_Final_Version.Data;
-using Insurance_Final_Version.Interfaces;
+﻿using Insurance_Final_Version.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -10,13 +9,13 @@ namespace Insurance_Final_Version.Repositories
     /// </summary>
     /// <typeparam name="TEntity">Generic object of type 'class'.</typeparam>
     /// <param name="dbContext">Database context, in our case it's always ApplicationDbContext.</param>
-    public abstract class BaseRepository<TEntity>(ApplicationDbContext dbContext) : IBaseRepository<TEntity>
+    public abstract class BaseRepository<TEntity>(DbContext dbContext) : IBaseRepository<TEntity>
         where TEntity : class, IViewModelable
     {
         /// <summary>
         /// Database context, in our case it's always ApplicationDbContext.
         /// </summary>
-        protected readonly ApplicationDbContext dbContext = dbContext;
+        protected readonly DbContext dbContext = dbContext;
         /// <summary>
         /// DbSet containing only the entity type that the repository is responsible for - Customer, Address or Insurance.
         /// </summary>
