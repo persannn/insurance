@@ -143,5 +143,29 @@ namespace TestProjectInsurance.TestControllers
             Assert.AreEqual(404, result.StatusCode);
         }
         #endregion
+
+        #region Create()
+        [TestMethod]
+        public void TestCreateAddToDatabase()
+        {
+            // Arrange
+            CustomerViewModel viewModel = new CustomerViewModel { Id = 2, CustomerId = 2, Name = "Bethadyne", Surname = "Amphetamine", Age = 69, Email = "bethyamphi@gmail.com", PhoneNumberPrefix = "+170", PhoneNumber = 159897023 };
+
+            Mock<CustomerManager> managerMock = mockFactory.GetMockCustomerManager();
+            managerMock
+                .Setup(m => m.Add(It.IsAny<CustomerViewModel>()))
+                .Returns((CustomerViewModel c) => c);
+
+            CustomersController controller = new CustomersController(managerMock.Object);
+
+            // Act
+            Task<IActionResult> createView = controller.Create(viewModel);
+            ViewResult result = (ViewResult)createView.Result;
+            CustomerViewModel? returnedViewModel = (CustomerViewModel?)result.Model;
+
+            // Assert
+            Assert.AreEqual(viewModel, returnedViewModel);
+        }
+        #endregion
     }
 }
